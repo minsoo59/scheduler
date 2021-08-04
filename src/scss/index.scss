@@ -5,4 +5,10 @@
 @import "./config/_element";
 
 // screens
+@import "./screens/Login.scss";
 @import "./screens/App.scss";
+
+// Mobile-S 320px, Mobile-M 375px, Mobile-L 425px, Tablet 768px
+body {
+  width: 1fr;
+}

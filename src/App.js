@@ -1,13 +1,14 @@
-import logo from "./logo.svg";
+import React from "react";
+import { HashRouter, Route } from "react-router-dom";
+import Home from "./routes/Home";
+import Login from "./routes/Login";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p> okayyyyy...I'll start to make my frist original app! ✅😘💕 </p>
-      </header>
-    </div>
+    <HashRouter>
+      <Route path="/" exact={true} component={Home} />
+      <Route path="login" component={Login} />
+    </HashRouter>
   );
 }
 
