@@ -51,7 +51,7 @@ function Join() {
         </div>
       </form>
       <div className="ToNewPage">
-        <a href="#/login"> login </a>
+        <a href="#/login"> Login ➡</a>
       </div>
     </>
   );

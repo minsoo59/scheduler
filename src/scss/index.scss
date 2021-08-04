@@ -30,9 +30,16 @@ body {
 
 .ToNewPage {
   margin-top: 40px;
-  font-size: 50px;
+  letter-spacing: -0.5px;
+  text-align: center;
+  width: 100%;
+  height: 40px;
+  cursor: pointer;
   a {
+    display: block;
+    text-transform: uppercase;
     text-decoration: none;
-    color: black;
+    color: $mainColor;
+    font-weight: bold;
   }
 }

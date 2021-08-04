@@ -3,7 +3,7 @@ import React from "react";
 function Change_Pw() {
   return (
     <>
-      <h1> Change Password</h1>
+      <h1> Change Password ➡</h1>
     </>
   );
 }
