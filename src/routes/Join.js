@@ -1,14 +1,15 @@
 import React from "react";
 import { SocialLogin } from "../socialLogin";
-function Login() {
+
+function Join() {
   return (
     <>
-      <h1 className="login__title"> Sign to Schduler </h1>
+      <h1 className="join__title"> Create Account </h1>
       <div className="social__Login">
         <SocialLogin></SocialLogin>
         <div className="social__anounce">Or use your email account</div>
       </div>
-      <form id="loginForm" className="login__form" method="POST">
+      <form id="joinForm" className="join__form" method="POST">
         <div className="typing__Id">
           <h4>User name</h4>
           <div>
@@ -16,6 +17,18 @@ function Login() {
             <input
               placeholder="Type your username"
               name="username"
+              type="text"
+              required
+            ></input>
+          </div>
+        </div>
+        <div className="typing__Email">
+          <h4>User Email</h4>
+          <div>
+            <i class="fas fa-at"></i>
+            <input
+              placeholder="Type your email"
+              name="email"
               type="text"
               required
             ></input>
@@ -33,17 +46,14 @@ function Login() {
             ></input>
           </div>
         </div>
-        <div className="forgetPw">
-          <a href="#/change_pw">Forget password?</a>
-        </div>
         <div className="typeing__submit">
-          <input type="submit" value="Login"></input>
+          <input type="submit" value="Join"></input>
         </div>
       </form>
       <div className="ToNewPage">
-        <a href="#/join"> join </a>
+        <a href="#/login"> login </a>
       </div>
     </>
   );
 }
-export default Login;
+export default Join;

@@ -1,0 +1,10 @@
+.join__title {
+  @extend %title;
+}
+.join__form {
+  @extend %form;
+  @extend %input;
+  .typeing__submit {
+    margin-top: 20px;
+  }
+}
