@@ -5,7 +5,7 @@ function Home() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p> I'll start to make my frist original app! 😘💕 </p>
+        <p> 😘💕 </p>
       </header>
     </div>
   );
