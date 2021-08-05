@@ -1,33 +1,42 @@
 import React from "react";
 import { SocialLogin } from "./socialLogin";
 const url = "http://localhost:7700/";
+
 class Join extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      username: "",
+      email: "",
+      password: "",
+    };
   }
 
   componentDidMount() {
     const form = document.getElementById("joinForm");
     const input = document.querySelectorAll("input");
-
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      input.forEach((list) => {
-        let inputValue = [];
-        inputValue = list.value;
-        console.log(inputValue);
-      });
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      let user = [];
+      for (let n = 0; n < input.length - 1; n++) {
+        user[n] = {
+          [input[n].name]: input[n].value,
+        };
+        this.setState({
+          [input[n].name]: input[n].value,
+        });
+      }
       await fetch(url + "join", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify({ user }),
       });
     };
-
-    if (form) form.addEventListener("submit", handleSubmit);
+    if (form) {
+      form.addEventListener("submit", handleSubmit);
+    }
   }
 
   render() {

@@ -1,7 +1,9 @@
 import User from "../models/User.js";
 
-export const postJoin = async (res, req) => {
-  // const { username, password } = req.body;
+export const postJoin = async (req, res) => {
+  const {
+    user: [{ username }, { email }, { password }],
+  } = req.body;
 
-  console.log(req.body);
+  console.log(username, email, password);
 };
