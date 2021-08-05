@@ -1,9 +1,9 @@
 import React from "react";
 import { HashRouter, Route } from "react-router-dom";
-import Home from "./routes/Home";
-import Login from "./routes/Login";
-import Join from "./routes/Join";
-import Change_Pw from "./routes/Change_Pw";
+import Home from "../components/Home";
+import Login from "../components/Login";
+import Join from "../components/Join";
+import Change_Pw from "../components/Change_Pw";
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { SocialLogin } from "../socialLogin";
+import { SocialLogin } from "./socialLogin";
 function Login() {
   return (
     <>
@@ -12,7 +12,7 @@ function Login() {
         <div className="typing__Id">
           <h4>User name</h4>
           <div>
-            <i class="fas fa-user-check"></i>
+            <i className="fas fa-user-check"></i>
             <input
               placeholder="Type your username"
               name="username"
@@ -24,7 +24,7 @@ function Login() {
         <div className="typing__Password">
           <h4>Password</h4>
           <div>
-            <i class="fas fa-lock" />
+            <i className="fas fa-lock" />
             <input
               placeholder="Type your password"
               name="password"
