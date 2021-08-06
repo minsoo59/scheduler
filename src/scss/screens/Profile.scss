@@ -1,0 +1,19 @@
+.profile__title {
+  @extend %title;
+}
+
+.profile__form {
+  @extend %form;
+  @extend %input;
+  .profile__image {
+    background-color: burlywood;
+    width: 100px;
+    height: 100px;
+    padding: 20px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  .typeing__submit {
+    margin-top: 20px;
+  }
+}
