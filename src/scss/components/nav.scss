@@ -2,14 +2,55 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: bisque;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   cursor: pointer;
-  a {
-    display: block;
-    width: 100%;
+  border-radius: 50%;
+  // profile image ex
+  background-image: url("https://source.unsplash.com/random/100x100");
+}
+.list {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 100px;
+  height: 40px;
+  li {
+    display: flex;
+    order: 2;
+    z-index: 5;
+    justify-content: center;
+    align-items: center;
     height: 100%;
+    width: 100%;
+    cursor: pointer;
+    background-color: white;
+
+    a {
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 13px;
+      color: black;
+      letter-spacing: 1px;
+    }
   }
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 50%;
+  order: 1;
+  z-index: 0;
+  background-color: grey;
+}
+.on {
+  display: block;
 }

@@ -6,12 +6,13 @@
   @extend %form;
   @extend %input;
   .profile__image {
-    background-color: burlywood;
-    width: 100px;
-    height: 100px;
-    padding: 20px;
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
     margin: 0 auto;
     margin-bottom: 20px;
+    // profile image ex
+    background-image: url("https://source.unsplash.com/random/100x100");
   }
   .typeing__submit {
     margin-top: 20px;

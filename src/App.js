@@ -11,7 +11,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     let user = {
-      isLoggined: false,
+      loggedIn: false,
     };
     this.state = {
       user,

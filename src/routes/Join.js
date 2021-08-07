@@ -59,7 +59,7 @@ export default class Join extends React.Component {
           props = {
             username: this.state.username,
             email: this.state.email,
-            isLoggedIn: true,
+            loggedIn: true,
           };
           console.log(props);
           this.setState({

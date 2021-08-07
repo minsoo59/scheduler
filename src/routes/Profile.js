@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav } from "../components/nav";
+import Nav from "../components/nav";
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -39,8 +39,7 @@ export default class Profile extends React.Component {
         </h1>
         <Nav />
         <form className="profile__form">
-          <div className="profile__image"></div>
-
+          <div className="profile__image" />
           <div className="typing__Id">
             <h4>User name</h4>
             <div>

@@ -50,9 +50,8 @@ export default class Login extends React.Component {
           props = {
             username: this.state.username,
             password: this.state.password,
-            isLoggedIn: true,
+            loggedIn: true,
           };
-          console.log(props);
           this.setState({
             error: "",
             fireRedirect: true,
@@ -68,7 +67,6 @@ export default class Login extends React.Component {
         console.error("Error in Signup API " + error);
       });
   };
-
   render() {
     return (
       <>

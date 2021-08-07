@@ -1,11 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+const startGithubLogin = (req, res) => {
+  // 일단 소셜 로그인 부분은 나중에 하자. 우선 User CRUD 부터!
+  const baseUrl = `https://github.com/login/oauth/authorize`;
+};
+
 export function SocialLogin() {
   return (
     <div className="social__login__part">
       <div className="__github">
-        <Link to="https://github.com/" target="_blank" rel="noreferrer">
+        <Link
+          to="/github/start"
+          target="_blank"
+          rel="noreferrer"
+          onChange={startGithubLogin}
+        >
           <i className="fab fa-github"></i>
         </Link>
       </div>

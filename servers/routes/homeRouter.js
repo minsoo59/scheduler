@@ -1,6 +1,6 @@
 import express from "express";
 import { home, main } from "../controllers/homeController.js";
-import { postJoin, postLogin } from "../controllers/userController.js";
+import { getJoin, postJoin, postLogin } from "../controllers/userController.js";
 
 const homeRouter = express.Router();
 
