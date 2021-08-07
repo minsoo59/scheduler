@@ -31,42 +31,35 @@ export default class Login extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { username, password } = this.state;
-    await fetch(url + "login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    })
-      .then((res) => res.text())
-      .then((resText) => {
-        resText = JSON.parse(resText);
-        console.log(resText);
-        if (resText.message === "Successful") {
-          let { props } = this;
-          props = {
-            username: this.state.username,
-            password: this.state.password,
-            loggedIn: true,
-          };
-          this.setState({
-            error: "",
-            fireRedirect: true,
-          });
-        } else {
-          this.setState({
-            error: resText.message,
-          });
-          console.log("API response of login: " + resText);
-        }
-      })
-      .catch((error) => {
-        console.error("Error in Signup API " + error);
+    try {
+      const res = await fetch(url + "login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
       });
+      const { status, ok } = res;
+      const json = JSON.parse(await res.text());
+      if (status === 200 && ok) {
+        this.setState({
+          fireRedirect: true,
+        });
+      } else {
+        this.setState({
+          error: json.message,
+        });
+        console.log(`Server response of Login is ${json}`);
+      }
+    } catch (error) {
+      console.error("Error in Login Server " + error);
+    }
   };
+  componentDidMount(req, res) {}
+
   render() {
     return (
       <>
@@ -84,14 +77,14 @@ export default class Login extends React.Component {
           <div className="typing__Id">
             <h4>User name</h4>
             <div>
-              <i className="fas fa-user-check"></i>
+              <i className="fas fa-user-check" />
               <input
                 onChange={this.handleNameChange}
                 placeholder="Type your username"
                 name="username"
                 type="text"
                 required
-              ></input>
+              />
             </div>
           </div>
           <div className="typing__Password">
@@ -104,14 +97,14 @@ export default class Login extends React.Component {
                 name="password"
                 type="password"
                 required
-              ></input>
+              />
             </div>
           </div>
           <div className="forgetPw">
             <Link to="/change_pw">Forget password?</Link>
           </div>
           <div className="typeing__submit">
-            <input type="submit" value="Login"></input>
+            <input type="submit" value="Login" />
           </div>
         </form>
         <div className="ToNewPage">

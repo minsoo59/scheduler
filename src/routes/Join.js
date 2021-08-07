@@ -39,43 +39,33 @@ export default class Join extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { username, email, password } = this.state;
-    await fetch(url + "join", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
-    })
-      .then((res) => res.text())
-      .then((resText) => {
-        resText = JSON.parse(resText);
-        console.log(resText);
-        if (resText.message === "Successful") {
-          let { props } = this;
-          props = {
-            username: this.state.username,
-            email: this.state.email,
-            loggedIn: true,
-          };
-          console.log(props);
-          this.setState({
-            error: "",
-            fireRedirect: true,
-          });
-        } else {
-          this.setState({
-            error: resText.message,
-          });
-          console.log("API response of signup: " + resText);
-        }
-      })
-      .catch((error) => {
-        console.error("Error in Signup API " + error);
+    try {
+      const res = await fetch(url + "join", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
       });
+      const { status } = res;
+      const json = JSON.parse(await res.text());
+      if (status === 200 || json === "Successful") {
+        this.setState({
+          fireRedirect: true,
+        });
+      } else {
+        this.setState({
+          error: json.message,
+        });
+        console.log(`Server response of Join is ${json}`);
+      }
+    } catch (error) {
+      console.error("Error in Join Server " + error);
+    }
   };
 
   render() {
@@ -95,7 +85,7 @@ export default class Join extends React.Component {
           <div className="typing__Id">
             <h4>User name</h4>
             <div>
-              <i className="fas fa-user-check"></i>
+              <i className="fas fa-user-check" />
               <input
                 onChange={this.handleNameChange}
                 placeholder="Type your username"
@@ -108,7 +98,7 @@ export default class Join extends React.Component {
           <div className="typing__Email">
             <h4>User Email</h4>
             <div>
-              <i className="fas fa-at"></i>
+              <i className="fas fa-at" />
               <input
                 onChange={this.handleEmailChange}
                 placeholder="Type your email"

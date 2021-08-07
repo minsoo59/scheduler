@@ -51,3 +51,13 @@ export const postLogin = async (req, res) => {
     return res.status(400).json({ error: "wrong" });
   }
 };
+
+export const postEditProfile = async (req, res) => {
+  const { username } = req.body;
+  const user = await User.findOneAndUpdate({ username });
+
+  req.session.user = user;
+
+  console.log(username);
+  return res.status(200).json({ message: "Successful" });
+};

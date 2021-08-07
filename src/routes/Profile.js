@@ -1,36 +1,55 @@
 import React from "react";
 import Nav from "../components/nav";
+import { Redirect } from "react-router";
+
+const url = "http://localhost:7700/";
 
 export default class Profile extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      username: "",
-      password: "",
+      username: "asdaisdj", //여기도 session 필요함....
       error: "",
       fireRedirect: false,
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  handleNameChange(e) {
+  handleNameChange = (e) => {
     this.setState({
       username: e.target.value,
     });
-  }
-  handleEmailChange(e) {
-    this.setState({
-      email: e.target.value,
-    });
-  }
-  handlePasswordChange(e) {
-    this.setState({
-      password: e.target.value,
-    });
-  }
+  };
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const { username } = this.state;
+    try {
+      const res = await fetch(url + "profile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+        }),
+      });
+      const { status } = res;
+      const json = JSON.parse(await res.text());
+      if (status === 200) {
+        this.setState({
+          fireRedirect: true,
+        });
+      } else {
+        this.setState({
+          error: json.message,
+        });
+        console.log(`Server response of Profile modified is ${json}`);
+      }
+    } catch (error) {
+      console.error("Error in Profile modified Server " + error);
+    }
+  };
   render() {
     return (
       <>
@@ -38,12 +57,12 @@ export default class Profile extends React.Component {
           Profile
         </h1>
         <Nav />
-        <form className="profile__form">
+        <form className="profile__form" onSubmit={this.handleSubmit}>
           <div className="profile__image" />
           <div className="typing__Id">
             <h4>User name</h4>
             <div>
-              <i className="fas fa-user-check"></i>
+              <i className="fas fa-user-check" />
               <input
                 onChange={this.handleNameChange}
                 placeholder="Type your username"
@@ -54,24 +73,11 @@ export default class Profile extends React.Component {
               />
             </div>
           </div>
-          <div className="typing__Password">
-            <h4>Password</h4>
-            <div>
-              <i className="fas fa-lock" />
-              <input
-                onChange={this.handlePasswordChange}
-                placeholder="Type your password"
-                name="password"
-                type="password"
-                value={this.state.password}
-                required
-              />
-            </div>
-          </div>
           <div className="typeing__submit">
             <input type="submit" value="Complete" />
           </div>
         </form>
+        {this.state.fireRedirect && <Redirect to="/main" push={true} />}
       </>
     );
   }

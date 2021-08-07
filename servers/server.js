@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
-    secret: process.env.COOKIE_SECRET || "aoisjdoiajsdi",
+    secret: process.env.COOKIE_SECRET || "http://localhost:3000",
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
