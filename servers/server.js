@@ -4,7 +4,6 @@ import session from "express-session";
 import morgan from "morgan";
 import MongoStore from "connect-mongo";
 import homeRouter from "./routes/homeRouter.js";
-
 import { localsMiddleware } from "./middlewares.js";
 
 const app = express();
@@ -16,14 +15,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
-    secret: process.env.COOKIE_SECRET || "http://localhost:3000",
+    secret: process.env.COOKIE_SECRET || "asdasdqwq",
     resave: false,
     saveUninitialized: false,
+    proxy: "http://localhost:3000",
     store: MongoStore.create({
       mongoUrl: process.env.DB_URL || "mongodb://127.0.0.1:27017/scheduler",
     }),
   })
 );
+
 app.use(localsMiddleware);
 app.use("/", homeRouter);
 

@@ -5,18 +5,16 @@ import { Link } from "react-router-dom";
 const url = "http://localhost:7700/";
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: null,
-      user: false,
-      logined: false,
-    };
-  }
+  state = {
+    username: String,
+    password: Number,
+    email: String,
+    fireRedirect: false,
+  };
   getUserdata = async () => {
-    await fetch(url)
-      .then((res) => res.json())
-      .then((data) => this.setState({ username: data.username }));
+    const res = await fetch(url);
+    const json = await res.json();
+    this.setState({ username: json.username });
   };
 
   componentDidMount() {

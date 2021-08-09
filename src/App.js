@@ -8,32 +8,10 @@ import main from "./routes/main";
 import Profile from "./routes/Profile";
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    let user = {
-      loggedIn: false,
-    };
-    this.state = {
-      user,
-    };
-
-    // this.authenticate = this.authenticate.bind(this);
-  }
-  // authenticate(user) {
-  //   this.setState({
-  //     user,
-  //   });
-  // }
-
   render() {
     return (
       <HashRouter>
-        <Route
-          path="/"
-          exact={true}
-          component={Home}
-          // authenticate={this.authenticate}
-        />
+        <Route path="/" exact={true} component={Home} />
         <Route
           path="/login"
           component={Login}
@@ -44,9 +22,9 @@ export default class App extends Component {
           component={Join}
           // authenticate={this.authenticate}
         />
+        <Route path="/profile" component={Profile} />
         <Route path="/change_pw" component={Change_Pw} />
         <Route path="/main" component={main} />
-        <Route path="/profile" component={Profile} />
       </HashRouter>
     );
   }
