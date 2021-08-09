@@ -2,6 +2,7 @@ import React from "react";
 import { SocialLogin } from "../components/socialLogin";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
+import axios from "axios";
 
 const url = "http://localhost:7700/";
 
@@ -9,30 +10,29 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
-      error: "",
+      username: String,
+      password: Number,
       fireRedirect: false,
     };
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.NameChange = this.NameChange.bind(this);
+    this.PasswordChange = this.PasswordChange.bind(this);
+    this.Submit = this.Submit.bind(this);
   }
-  handleNameChange(e) {
+  NameChange(e) {
     this.setState({
       username: e.target.value,
     });
   }
-  handlePasswordChange(e) {
+  PasswordChange(e) {
     this.setState({
       password: e.target.value,
     });
   }
-  handleSubmit = async (e) => {
+  Submit = async (e) => {
     e.preventDefault();
     const { username, password } = this.state;
     try {
-      const res = await fetch(url + "login", {
+      const res = await fetch(`${url}login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,22 +43,31 @@ export default class Login extends React.Component {
         }),
       });
       const { status, ok } = res;
+      console.log(`status : ${status}, ok : ${ok} `);
       const json = JSON.parse(await res.text());
+      console.log("json" + json);
       if (status === 200 && ok) {
         this.setState({
           fireRedirect: true,
         });
       } else {
         this.setState({
-          error: json.message,
+          error: json.error,
         });
-        console.log(`Server response of Login is ${json}`);
+        console.log(`Server response of Login is ${json.error}`);
       }
     } catch (error) {
       console.error("Error in Login Server " + error);
     }
   };
-  componentDidMount(req, res) {}
+  async componentDidMount() {
+    try {
+      const res = await axios.get(`${url}login`);
+      console.log(`getLogin : ${res.data}`);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   render() {
     return (
@@ -69,7 +78,7 @@ export default class Login extends React.Component {
           <div className="social__anounce">Or use your email account</div>
         </div>
         <form
-          onSubmit={this.handleSubmit}
+          onSubmit={this.Submit}
           id="loginForm"
           className="login__form"
           method="POST"
@@ -79,7 +88,7 @@ export default class Login extends React.Component {
             <div>
               <i className="fas fa-user-check" />
               <input
-                onChange={this.handleNameChange}
+                onChange={this.NameChange}
                 placeholder="Type your username"
                 name="username"
                 type="text"
@@ -92,7 +101,7 @@ export default class Login extends React.Component {
             <div>
               <i className="fas fa-lock" />
               <input
-                onChange={this.handlePasswordChange}
+                onChange={this.PasswordChange}
                 placeholder="Type your password"
                 name="password"
                 type="password"

@@ -9,34 +9,33 @@ export default class Join extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      email: "",
-      password: "",
-      error: "",
+      username: String,
+      password: Number,
+      email: String,
       fireRedirect: false,
     };
 
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.NameChange = this.NameChange.bind(this);
+    this.EmailChange = this.EmailChange.bind(this);
+    this.PasswordChange = this.PasswordChange.bind(this);
+    this.Submit = this.Submit.bind(this);
   }
-  handleNameChange(e) {
+  NameChange(e) {
     this.setState({
       username: e.target.value,
     });
   }
-  handleEmailChange(e) {
+  EmailChange(e) {
     this.setState({
       email: e.target.value,
     });
   }
-  handlePasswordChange(e) {
+  PasswordChange(e) {
     this.setState({
       password: e.target.value,
     });
   }
-  handleSubmit = async (e) => {
+  Submit = async (e) => {
     e.preventDefault();
     const { username, email, password } = this.state;
     try {
@@ -53,7 +52,7 @@ export default class Join extends React.Component {
       });
       const { status } = res;
       const json = JSON.parse(await res.text());
-      if (status === 200 || json === "Successful") {
+      if (status === 200 && json === "Successful") {
         this.setState({
           fireRedirect: true,
         });
@@ -77,7 +76,7 @@ export default class Join extends React.Component {
           <div className="social__anounce">Or use your email account</div>
         </div>
         <form
-          onSubmit={this.handleSubmit}
+          onSubmit={this.Submit}
           id="joinForm"
           className="join__form"
           method="POST"
@@ -87,7 +86,7 @@ export default class Join extends React.Component {
             <div>
               <i className="fas fa-user-check" />
               <input
-                onChange={this.handleNameChange}
+                onChange={this.NameChange}
                 placeholder="Type your username"
                 name="username"
                 type="text"
@@ -100,7 +99,7 @@ export default class Join extends React.Component {
             <div>
               <i className="fas fa-at" />
               <input
-                onChange={this.handleEmailChange}
+                onChange={this.EmailChange}
                 placeholder="Type your email"
                 name="email"
                 type="email"
@@ -113,7 +112,7 @@ export default class Join extends React.Component {
             <div>
               <i className="fas fa-lock" />
               <input
-                onChange={this.handlePasswordChange}
+                onChange={this.PasswordChange}
                 placeholder="Type your password"
                 name="password"
                 type="password"

@@ -1,31 +1,33 @@
 import React from "react";
 import Nav from "../components/nav";
+import axios from "axios";
 import { Redirect } from "react-router";
 
 const url = "http://localhost:7700/";
 
 export default class Profile extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      username: "asdaisdj", //여기도 session 필요함....
+      username: "", //여기도 session 필요함....
+      password: "",
       error: "",
       fireRedirect: false,
     };
 
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.NameChange = this.NameChange.bind(this);
+    this.Submit = this.Submit.bind(this);
   }
-  handleNameChange = (e) => {
+  NameChange = (e) => {
     this.setState({
       username: e.target.value,
     });
   };
-  handleSubmit = async (e) => {
+  Submit = async (e) => {
     e.preventDefault();
     const { username } = this.state;
     try {
-      const res = await fetch(url + "profile", {
+      const res = await fetch(`${url}profile`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,6 +37,7 @@ export default class Profile extends React.Component {
         }),
       });
       const { status } = res;
+      console.log(`status : ${status}, res : ${res.session}`);
       const json = JSON.parse(await res.text());
       if (status === 200) {
         this.setState({
@@ -50,6 +53,15 @@ export default class Profile extends React.Component {
       console.error("Error in Profile modified Server " + error);
     }
   };
+  async componentDidMount() {
+    try {
+      // { username, password }
+      const res = await axios.get(`${url}profile`);
+      console.log(`getProfile : ${res.data}`);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   render() {
     return (
       <>
@@ -57,14 +69,14 @@ export default class Profile extends React.Component {
           Profile
         </h1>
         <Nav />
-        <form className="profile__form" onSubmit={this.handleSubmit}>
+        <form className="profile__form" onSubmit={this.Submit}>
           <div className="profile__image" />
           <div className="typing__Id">
             <h4>User name</h4>
             <div>
               <i className="fas fa-user-check" />
               <input
-                onChange={this.handleNameChange}
+                onChange={this.NameChange}
                 placeholder="Type your username"
                 name="username"
                 type="text"
